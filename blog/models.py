@@ -20,6 +20,7 @@ class Breed(models.Model):
 class Dog(models.Model):
     name = models.CharField(max_length=100)
     weight = models.DecimalField(max_digits=4, decimal_places=2)
+    # dob = models.DateField(blank=True,null=True)
     date_of_birth = models.DateField()
     image = models.ImageField(null=True, blank=True, upload_to="images/")
     description = models.TextField()
