@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+    Add Breed
+{% endblock %}
+{% block content %}
+    <h1>Add Dog Breed</h1>
+    {% if user.is_authenticated %}
+        {% if user.id == 1 %}
+        <form method="post">
+            {% csrf_token %}
+            <strong>Are you sure to delete?</strong><br>
+            <button class="btn btn-secondary">Delete</button>
+        <a href="{% url 'breed-detail' %}" class="btn btn-secondary">Back</a>
+        </form>
+        {% endif %}
+    {% else %}
+        <p>Sorry, you are not allow in this page!</p>
+    {% endif %}
+{% endblock %}
