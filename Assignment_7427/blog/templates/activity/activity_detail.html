@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    Activity Details
+{% endblock %}
+{% block content %}
+    <h1>{{ activity.name }}</h1>
+    <div>Created by: {{ activity.owner }}<br>Date: {{ activity.date }}
+        <br>Description: {{ activity.description }}<br>Location: {{ activity.location }}</div>
+    {% if user.is_authenticated %}
+        {% if user.id == activity.owner.id %}
+            <a href="{% url 'update-activity' activity.pk %}" class="btn btn-secondary">Update details</a>
+            <a href="{% url 'delete-activity' activity.pk %}" class="btn btn-danger">Delete activity</a>
+        {% endif %}<br>
+        <form action="{% url 'join-activity' activity.pk %}" method="post">
+            {% csrf_token %}
+            {% if joined %}
+                <button type="submit", name="activity_id", class="btn btn-secondary", value="{{ activity.id }}">Leave</button>
+            {% else %}
+                <button type="submit", name="activity_id", class="btn btn-success", value="{{ activity.id }}">Join</button>
+            {% endif %}
+        </form>
+    {% endif %}<br>
+    <h4>{{ total_joins }} owner joined</h4>
+    <div class="form-control" style="width: 20rem">
+    {% for user in activity.join.all %}
+        {{ user }}<br>
+    {% endfor %}
+    </div>
+    <br>
+    <a href="{% url 'activity' %}" class="btn btn-secondary">Back</a>
+{% endblock %}
