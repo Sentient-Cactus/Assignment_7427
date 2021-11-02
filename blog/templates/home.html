@@ -35,7 +35,8 @@
                     dataType: "JSON",
                     success: function (data){
                         console.log(data)
-                        $("#temperature").val(data.main.temp);
+                        //This is to calculate the Kelvin -> Celcius, and round it to 2 decimal points
+                        $("#temperature").val(Math.round((data.main.temp - 273.15) * 100) / 100);
                         $("#wind").val(data.wind.deg);
                         $("#humidity").val(data.main.humidity);
                     },
